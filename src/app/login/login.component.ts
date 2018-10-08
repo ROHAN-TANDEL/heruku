@@ -9,6 +9,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private _router: Router,) { }
 role="researcher"
+loginForm:any;
+submitted:any;
+f:any;
+onSubmit:any;
   ngOnInit() {
   }
   login(email, password){
