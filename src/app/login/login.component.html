@@ -29,7 +29,7 @@
            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="login-logo text-center mb-3"> <img src="assets/logo-1.png" alt="brand logo"></div>
        <h3 class="text-center mb-3">LITERATURE MONITORING</h3>
-       <div class="form-group">
+       <div class="form-group text-center">
            <input type="text" formControlName="username" class="form-control" placeholder="User Name" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
            <div *ngIf="f.username.errors.required">Username is required</div>
