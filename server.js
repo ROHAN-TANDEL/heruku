@@ -1,16 +1,32 @@
-//Install express server
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
-
+const http = require('http');
 const app = express();
 
-// Serve only the static files form the dist directory
-app.use(express.static(__dirname + '/dist/demo-angular6-app'));
+// API file for interacting with MongoDB
+const api = require('./server/routes/api');
 
-app.get('/*', function(req,res) {
-    
-res.sendFile(path.join(__dirname+'/dist/demo-angular6-app/index.html'));
+// Parsers
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
+
+// Angular DIST output folder
+app.use(express.static(path.join(__dirname, 'dist/heruko-test')));
+
+// API location
+app.use('/api', api);
+
+
+// Send all other requests to the Angular app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/heruko-test/index.html'));
 });
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+//Set Port
+const port = process.env.PORT || '3000';
+app.set('port', port);
+
+const server = http.createServer(app);
+
+server.listen(port, () => console.log(`Running on localhost:${port}`));
